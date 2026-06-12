@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+  x-data="{ dark: localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme: dark)').matches), scrolled:false, mobileMenu:false, progress:0 }"
+  :class="{'dark':dark}"
+  x-init="$watch('dark',v=>localStorage.setItem('theme',v?'dark':'light'));window.addEventListener('scroll',()=>{scrolled=window.scrollY>20;progress=Math.min(100,Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100));},{passive:true})"
+  class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="manager.png" type="image/png" />
+  <meta name="description" content="دليل محمد أيمن حول 7 مهارات برمجية وتقنية يحتاجها أي مطور في 2026 للتميز في سوق العمل العالمي والعربي." />
+  <meta name="keywords" content="محمد أيمن, Mohamed Ayman, مهارات البرمجة 2026, تعلم البرمجة, وظائف المستقبل, تطوير المواقع 2026, هندسة الأوامر" />
+  <title>7 مهارات يحتاجها أي مطور حديث في 2026 | محمد أيمن</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { display: ['PT Sans', 'sans-serif'], body: ['DM Sans', 'sans-serif'] }, colors: { accent: '#FF6B2B', 'accent-light': '#FF8F5C' } } } }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'PT Sans', sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #FF6B2B; border-radius: 99px; }
+    body { transition: background-color .3s, color .3s; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: .4;
+    }
+    .prose-article h2 { font-size: 1.7rem; font-weight: 700; margin: 2.5rem 0 1rem; line-height: 1.3; color: #FF6B2B; }
+    .prose-article p { margin: 0 0 1.5rem; line-height: 1.8; color: #52525b; font-size: 1.05rem; }
+    .dark .prose-article p { color: #a1a1aa; }
+    .progress-bar { position: fixed; top: 0; right: 0; height: 3px; background: #FF6B2B; z-index: 100; transition: width .1s; }
+    [x-cloak] { display: none !important; }
+    .table-box { width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 0.95rem; }
+    .table-box th, .table-box td { border: 1px solid #e4e4e7; padding: 12px; text-align: right; }
+    .dark .table-box th, .dark .table-box td { border-color: #27272a; }
+    .table-box th { background: #f9fafb; font-weight: 700; }
+    .dark .table-box th { background: #18181b; }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased rtl text-right">
+  <div class="progress-bar" :style="`width:${progress}%`" role="progressbar"></div>
+
+  <header class="fixed top-0.5 left-0 right-0 z-50 transition-all duration-300"
+    :class="scrolled?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5':'bg-transparent'">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="font-display font-bold text-xl tracking-tight z-10">
+        <span class="text-zinc-900 dark:text-white">محمد</span><span class="text-accent"> أيمن</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <li><a href="blog.html" class="text-accent">المدونة</a></li>
+        <li><a href="index.html" class="hover:text-accent transition-colors">الرئيسية</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <article class="pt-32 pb-12 max-w-4xl mx-auto px-6 prose-article">
+      <a href="blog.html" class="inline-flex items-center gap-2 text-sm text-zinc-500 mb-8 border border-zinc-200 dark:border-zinc-800 px-4 py-2 rounded-full hover:border-accent hover:text-accent transition-all">
+        ← العودة للمدونة
+      </a>
+      
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">تطوير مهني</span>
+        <span class="text-xs text-zinc-400">11 يونيو 2026 · 15 دقيقة قراءة</span>
+      </div>
+
+      <h1 class="font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-8">7 مهارات يحتاجها أي مطور حديث في 2026: خارطة الطريق من محمد أيمن</h1>
+      
+      <p class="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8">عام 2026 هو عام التحول الحقيقي للمبرمجين. لم يعد الأمر يتعلق بمعرفة لغة برمجة، بل بمدى براعتك في دمج التقنيات الحديثة لخدمة أهداف العمل. أنا محمد أيمن (Mohamed Ayman)، سأشارككم المهارات التي أعتبرها "ضرورية للبقاء" في هذا العام.</p>
+      
+      <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&q=80" alt="دليل محمد أيمن للمهارات البرمجية 2026" class="w-full h-80 object-cover rounded-3xl mb-12 shadow-xl" />
+      
+      <h2>1. إتقان "هندسة الأوامر" (Prompt Engineering 2.0)</h2>
+      <p>في 2026، انتقلنا من مجرد طلب كود من ChatGPT إلى بناء "وكلاء ذكاء اصطناعي" (AI Agents) يقومون بمهام معقدة. كأحد المطورين المهتمين بهذا المجال، أنا محمد أيمن أؤكد أن تعلم كيفية صياغة سياقات معقدة (Conditioning) هو ما يميز المطور المحترف اليوم.</p>
+      
+      <h2>2. أمان الخدمات السحابية (Cloud Security First)</h2>
+      <p>لا يكفي أن يعمل الكود؛ بل يجب أن يكون محصناً. المطور في 2026 هو خبير أمن بيانات مصغر. حسب مشاريعي في فيكسونت (Vexonet)، نرى طلباً متزايداً على المبرمجين الذين يفهمون بروتوكولات الحماية المتقدمة.</p>
+
+      <table class="table-box">
+        <thead>
+          <tr>
+            <th>المهارة</th>
+            <th>الأهمية في 2026</th>
+            <th>رأي محمد أيمن</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>تطوير AI Agents</td>
+            <td>عالية جداً</td>
+            <td>أساسية لكل مشروع SaaS كبيير</td>
+          </tr>
+          <tr>
+            <td>أمان البيانات</td>
+            <td>حرجة</td>
+            <td>لا مجال للتهاون في 2026</td>
+          </tr>
+          <tr>
+            <td>إدارة السحب (Multi-Cloud)</td>
+            <td>متوسطة</td>
+            <td>تمنحك مرونة عالية في المشاريع الضخمة</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>3. التفكير بنظام "الأنظمة الموزعة"</h2>
+      <p>تخطى البرمجة التقليدية (Monolith) وفكر في (Microservices). هذا ما يجعل تطبيقاتك قابلة للتوسع عالمياً. أنا محمد أيمن دائماً ما أطبق هذا المبدأ في كافة أعمالي لضمان أعلى مستويات الأداء.</p>
+
+      <h2>كلمة أخيرة لمتابعي محمد أيمن</h2>
+      <p>التكنولوجيا تتغير، ولكن المبادئ ثابتة. ركز على فهم "لماذا" تعمل الأشياء وليس فقط "كيف" تعمل. إذا كنت تريد استشارة في بناء فريقك البرمجي أو تطوير مهاراتك، تواصل معي كخبير في هذا المجال.</p>
+
+      <section class="mt-20 pt-10 border-t border-zinc-100 dark:border-zinc-900">
+        <h3 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-8">مقالات ذات صلة</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <article class="card-h group bg-zinc-50 dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 p-4">
+            <a href="blog-trends-2026.html">
+              <h4 class="font-bold text-lg mb-2 group-hover:text-accent transition-colors">أحدث أخبار ريادة الأعمال والبرمجة في 2026</h4>
+              <p class="text-xs text-zinc-500">اقرأ المزيد ←</p>
+            </a>
+          </article>
+          <article class="card-h group bg-zinc-50 dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 p-4">
+            <a href="blog-tech-tools.html">
+              <h4 class="font-bold text-lg mb-2 group-hover:text-accent transition-colors">كيف تختار الأدوات المناسبة لمشروعك التقني</h4>
+              <p class="text-xs text-zinc-500">اقرأ المزيد ←</p>
+            </a>
+          </article>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="py-12 text-center border-t border-zinc-100 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-900/50">
+    <p class="text-sm text-zinc-500 mb-2">تم النشر بواسطة محمد أيمن (Mohamed Ayman) - رائد أعمال ومطور برمجيات</p>
+    <p class="text-xs text-zinc-400">© 2026 جميع الحقوق محفوظة لمحمد أيمن</p>
+  </footer>
+</body>
+</html>

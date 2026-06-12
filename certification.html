@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" x-data="certs()" :class="{'dark':dark}" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="manager.png" type="image/png" />
+    <title>Certification — Mohamed Ayman</title>
+    <meta name="description" content="Certificates and achievements for Mohamed Ayman." />
+    <meta property="og:title" content="Certification — Mohamed Ayman" />
+    <meta property="og:description" content="Certificates and achievements for Mohamed Ayman." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mohamedayman.online/certification.html" />
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="og:image:alt" content="Mohamed Ayman certification preview" />
+    <meta property="og:site_name" content="Mohamed Ayman" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image"
+        content="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" />
+    <meta name="twitter:title" content="Certification — Mohamed Ayman" />
+    <meta name="twitter:description" content="Certificates and achievements for Mohamed Ayman." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { display: ['PT Sans', 'sans-serif'], body: ['DM Sans', 'sans-serif'] },
+                    colors: { accent: '#FF6B2B', 'accent-light': '#FF8F5C' }
+                }
+            }
+        };
+    </script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'PT Sans', sans-serif;
+        }
+
+        body {
+            transition: background-color .3s, color .3s;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: .35;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity .55s cubic-bezier(.4, 0, .2, 1), transform .55s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: currentColor;
+            transition: width .25s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .photo-frame {
+            overflow: hidden;
+            background: #e4e4e7;
+            position: relative;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .cert-card {
+            transition: transform .28s cubic-bezier(.4, 0, .2, 1), border-color .18s;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-4px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #FF6B2B;
+            border-radius: 99px;
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased">
+
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        :class="scrolled ? 'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5' : 'bg-transparent'">
+        <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="index.html" class="font-display font-bold text-xl tracking-tight z-10">
+                <span class="text-zinc-900 dark:text-white">Mohamed</span><span class="text-accent"> Ayman</span>
+            </a>
+            <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <li><a href="index.html#services"
+                        class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Services</a>
+                </li>
+                <li><a href="projects.html"
+                        class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Work</a>
+                </li>
+                <li><a href="certification.html" class="nav-link text-accent font-medium active">Certification</a></li>
+                <li><a href="index.html#about"
+                        class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">About</a>
+                </li>
+                <li><a href="index.html#contact"
+                        class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Contact</a>
+                </li>
+            </ul>
+            <div class="flex items-center gap-3">
+                <button @click="dark=!dark; localStorage.setItem('theme', dark ? 'dark' : 'light')"
+                    class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                    :aria-label="dark ? 'Light mode' : 'Dark mode'">
+                    <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                    <svg x-show="dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                    </svg>
+                </button>
+                <a href="index.html#contact"
+                    class="hidden md:inline-flex items-center gap-2 bg-accent text-white text-sm font-medium px-5 py-2 rounded-full hover:bg-accent-light transition-colors">Contact
+                    me →</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="pt-32 pb-14 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="max-w-6xl mx-auto px-6 relative z-10">
+                <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Certificates</p>
+                <h1
+                    class="reveal font-display font-bold text-5xl md:text-6xl text-zinc-900 dark:text-white leading-tight mb-4">
+                    My Certification Gallery</h1>
+                <p class="reveal text-lg text-zinc-500 dark:text-zinc-400 max-w-3xl leading-8 mb-3">A polished gallery
+                    of your achievements, designed to highlight every certificate with clarity, elegance, and a
+                    professional
+                    feel.</p>
+                <p class="reveal text-sm text-zinc-500 dark:text-zinc-400 max-w-2xl leading-7">This section brings your
+                    learning journey to life through clean cards, thoughtful spacing, and a layout that keeps each
+                    milestone easy to explore.</p>
+            </div>
+        </section>
+
+        <section class="pb-24">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <template x-for="item in certificates" :key="item.id">
+                        <article
+                            class="reveal cert-card flex flex-col rounded-3xl overflow-hidden border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:border-accent">
+                            <div class="photo-frame h-56 relative">
+                                <img :src="item.img" :alt="item.title" loading="lazy" />
+                                <div
+                                    class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/40 to-transparent p-4">
+                                    <p class="text-xs uppercase tracking-[0.25em] text-accent">Certificate</p>
+                                    <h3 class="font-display text-xl text-white" x-text="item.title"></h3>
+                                </div>
+                            </div>
+                            <div class="px-6 pb-6 pt-4 space-y-4">
+                                <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-7" x-text="item.description">
+                                </p>
+                                </p>
+                                <p class="mt-4 text-xs uppercase tracking-[0.25em] text-zinc-400" x-text="item.meta">
+                                </p>
+                            </div>
+                        </article>
+                    </template>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-zinc-100 dark:border-zinc-900">
+        <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-zinc-400">© <span id="year"></span> Mohamed Ayman. All rights reserved.</p>
+            <p class="text-xs text-zinc-500">Built with Mohamed Ayman &amp; Vexonet</p>
+        </div>
+    </footer>
+
+    <script>
+        function certs() {
+            return {
+                dark: false,
+                scrolled: false,
+                certificates: [
+                    { id: 1, title: 'Getting Started with Cisco Packet Tracer', description: 'Proficient in computer networking foundations, network protocols, and simulation using Cisco Packet Tracer.', meta: '2026 • Networking Basics', img: 'https://6a2198dd66b5d7d9ebc78bf6.imgix.net/Screenshot%202026-06-04%20191157.png' },
+                    { id: 2, title: 'Critical Thinking in the Age of AI', description: "Skilled in using critical thinking to evaluate AI-generated content, combat cognitive biases, and leverage practical verification tools for data-driven decision making.", meta: '2026 • Professional Development', img: 'https://6a2198dd66b5d7d9ebc78bf6.imgix.net/Screenshot%202026-06-04%20192222.png' },
+                    { id: 3, title: 'Database Fundamentals', description: "Proficient in database fundamentals, data modeling, and understanding core relational database structures.", meta: '2026 • Database', img: 'https://6a2198dd66b5d7d9ebc78bf6.imgix.net/Screenshot%202026-06-04%20194830.png' },
+                    { id: 4, title: 'Mastercard Cybersecurity Job Simulation', description: "Completed a virtual experience simulating cybersecurity tasks at Mastercard, focusing on phishing email design and interpreting phishing simulation results.", meta: '2026 • Cybersecurity', img: 'https://6a2198dd66b5d7d9ebc78bf6.imgix.net/Screenshot%202026-06-04%20195157.png' },
+                    { id: 5, title: 'Citi Technology Software Development Job Simulation', description: "Completed a software development virtual experience simulating tech tasks at Citi, including creating state diagrams, writing feature proposals, querying web data, and visualizing live data.", meta: '2026 • Software Engineering', img: 'https://6a2198dd66b5d7d9ebc78bf6.imgix.net/Screenshot%202026-06-04%20195406.png' },
+                    { id: 6, title: 'Build with AI: Masr Edition - Certificate of Attendance', description: "Attended the 'Build with AI: Masr Edition' virtual sessions by Google for Developers and ITI, gaining insights into integrating AI technologies into software development.", meta: '2026 • Software Development', img: 'https://6a2198dd66b5d7d9ebc78bf6.imgix.net/Screenshot%202026-06-04%20195956.png' },
+                    { id: 7, title: 'CTRL YOUR FUTURE - Certificate of Appreciation', description: "Recognized by the Ministry of Youth and Sports for active participation in the 'CTRL YOUR FUTURE' event, covering technology, programming, artificial intelligence, and various computer science disciplines.", meta: '2026 • Workflow', img: 'https://6a2198dd66b5d7d9ebc78bf6.imgix.net/Screenshot%202026-06-04%20200348.png' }
+                ],
+                init() {
+                    this.dark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                    window.addEventListener('scroll', () => { this.scrolled = window.scrollY > 20; }, { passive: true });
+                    this.$nextTick(() => {
+                        const obs = new IntersectionObserver(entries => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('visible');
+                                    obs.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+                        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+                    });
+                }
+            };
+        }
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

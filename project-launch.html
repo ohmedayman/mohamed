@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{
+  dark: localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme: dark)').matches),
+  scrolled: false,
+  mobileMenu: false,
+  progress: 0
+}" :class="{'dark':dark}" x-init="
+  $watch('dark', v => localStorage.setItem('theme', v ? 'dark' : 'light'));
+  window.addEventListener('scroll', () => {
+    scrolled = window.scrollY > 20;
+    progress = Math.min(100, Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100));
+  }, { passive: true });
+" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="manager.png" type="image/png" />
+  <meta name="description"
+    content="QCV — AI-Powered Resume Builder by Vexonet. Craft professional, ATS-friendly CVs in minutes." />
+  <meta name="author" content="Mohamed Ayman" />
+  <meta property="og:title" content="QCV | AI-Powered Resume Builder" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://6a2198dd66b5d7d9ebc78bf6.imgix.net/qcv_official_logo_refined.png" />
+  <title>QCV · AI Resume SaaS — Mohamed Ayman</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { display: ['PT Sans', 'sans-serif'], body: ['DM Sans', 'sans-serif'] },
+          colors: { accent: '#FF6B2B', 'accent-light': '#FF8F5C' }
+        }
+      }
+    }
+  </script>
+  <style>
+    *,*::before,*::after { box-sizing: border-box; }
+    html { font-family: 'DM Sans', sans-serif; }
+    h1,h2,h3,h4,h5,h6 { font-family: 'PT Sans', sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #FF6B2B; border-radius: 99px; }
+    body { transition: background-color .3s, color .3s; }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: .4;
+    }
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: currentColor;
+      transition: width .25s cubic-bezier(.4, 0, .2, 1);
+    }
+    .nav-link:hover::after { width: 100%; }
+    .btn-primary { position: relative; overflow: hidden; }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: rgba(255, 255, 255, .18);
+      transform: skewX(-20deg);
+      transition: left .4s cubic-bezier(.4, 0, .2, 1);
+    }
+    .btn-primary:hover::after { left: 160%; }
+    [x-cloak] { display: none !important; }
+    .photo-frame { position: relative; overflow: hidden; background: #e4e4e7; }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: #FF6B2B; z-index: 100; transition: width .1s linear; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .55s cubic-bezier(.4, 0, .2, 1), transform .55s cubic-bezier(.4, 0, .2, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .prose-cs h2 { font-family: 'PT Sans', sans-serif; font-size: 1.55rem; font-weight: 700; margin: 2.75rem 0 1rem; line-height: 1.25; }
+    .prose-cs h3 { font-family: 'PT Sans', sans-serif; font-size: 1.15rem; font-weight: 700; margin: 2rem 0 .6rem; line-height: 1.3; color: #FF6B2B; }
+    .prose-cs p { margin: 0 0 1.4rem; line-height: 1.82; color: #52525b; }
+    .dark .prose-cs p { color: #a1a1aa; }
+    .prose-cs ul { margin: 0 0 1.4rem 1.5rem; list-style: disc; }
+    .prose-cs li { margin-bottom: .45rem; line-height: 1.7; color: #52525b; }
+    .dark .prose-cs li { color: #a1a1aa; }
+    .prose-cs blockquote { border-left: 3px solid #FF6B2B; padding: .75rem 1.25rem; margin: 0 0 1.8rem; background: #fff7f4; border-radius: 0 8px 8px 0; }
+    .dark .prose-cs blockquote { background: #27272a; }
+    .prose-cs blockquote p { color: #52525b; font-style: italic; margin: 0; }
+    .dark .prose-cs blockquote p { color: #a1a1aa; }
+    .stat-card { border-left: 3px solid #FF6B2B; }
+    .img-caption { font-size: .8rem; color: #a1a1aa; text-align: center; margin-top: .6rem; }
+    .step-badge { width: 2rem; height: 2rem; min-width: 2rem; border-radius: 50%; background: #FF6B2B; color: #fff; font-family: 'PT Sans', sans-serif; font-weight: 700; font-size: .85rem; display: flex; align-items: center; justify-content: center; }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased">
+  <div class="progress-bar" :style="`width:${progress}%`" role="progressbar"></div>
+
+  <header class="fixed top-0.5 left-0 right-0 z-50 transition-all duration-300"
+    :class="scrolled ? 'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5' : 'bg-transparent'">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="font-display font-bold text-xl tracking-tight z-10">
+        <span class="text-zinc-900 dark:text-white">Mohamed</span><span class="text-accent"> Ayman</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <li><a href="index.html#services" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Services</a></li>
+        <li><a href="projects.html" class="nav-link text-accent font-medium">Work</a></li>
+        <li><a href="index.html#about" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">About</a></li>
+        <li><a href="blog.html" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Blog</a></li>
+        <li><a href="index.html#contact" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <header class="pt-32 pb-10 max-w-4xl mx-auto px-6">
+        <a href="index.html#work" class="inline-flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors mb-8">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" /></svg>
+          Back to work
+        </a>
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+          <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">AI SaaS</span>
+          <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded-full">Tooling</span>
+          <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded-full">Career Tech</span>
+          <span class="text-xs text-zinc-400 ml-1">2026 · Launching Soon</span>
+        </div>
+        <h1 class="reveal font-display font-bold text-4xl md:text-5xl lg:text-6xl text-zinc-900 dark:text-white leading-tight mb-6">QCV — AI-Powered Professional Resumes</h1>
+        <p class="reveal d1 text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed mb-10 max-w-2xl">QCV is an AI-powered platform designed to build professional resumes in minutes, helping job seekers craft ATS-friendly CVs tailored to market demands.</p>
+        <div class="reveal d2 grid grid-cols-2 md:grid-cols-4 gap-4 py-8 border-t border-b border-zinc-100 dark:border-zinc-900">
+          <div><p class="text-xs text-zinc-400 uppercase tracking-widest mb-1">Product</p><p class="font-medium text-zinc-900 dark:text-white text-sm">QCV Builder</p></div>
+          <div><p class="text-xs text-zinc-400 uppercase tracking-widest mb-1">Company</p><p class="font-medium text-zinc-900 dark:text-white text-sm">Vexonet</p></div>
+          <div><p class="text-xs text-zinc-400 uppercase tracking-widest mb-1">AI Model</p><p class="font-medium text-zinc-900 dark:text-white text-sm">GPT-4o Integration</p></div>
+          <div><p class="text-xs text-zinc-400 uppercase tracking-widest mb-1">Pricing</p><p class="font-medium text-zinc-900 dark:text-white text-sm">Freemium SaaS</p></div>
+        </div>
+      </header>
+
+      <div class="max-w-6xl mx-auto px-6 mb-16">
+        <div class="reveal photo-frame w-full h-72 md:h-[480px] rounded-3xl">
+          <img src="https://6a2198dd66b5d7d9ebc78bf6.imgix.net/qcv_official_logo_refined.png" alt="QCV Hero" />
+        </div>
+      </div>
+
+      <div class="max-w-3xl mx-auto px-6 pb-4 prose-cs">
+        <h2>The Challenge</h2>
+        <p>Job seekers often struggle with presenting their skills in a way that matches automated ATS (Applicant Tracking Systems) while still appealing to human recruiters. QCV bridges this gap using advanced AI analysis to suggest improvements and format layouts perfectly.</p>
+        <blockquote><p>"QCV doesn't just build a document; it builds your career story using data and intelligence."</p></blockquote>
+        
+        <h2>Key Features</h2>
+        <ul>
+          <li><strong>AI Content Generation:</strong> Automatically generate bullet points for experience based on job descriptions.</li>
+          <li><strong>ATS Optimization:</strong> Real-time scan to ensure your resume passes through automated gatekeepers.</li>
+          <li><strong>Professional Templates:</strong> 30+ clean, designer-made layouts that put your content first.</li>
+        </ul>
+
+        <h2>The Goal</h2>
+        <p>Our goal with QCV is to reduce the average resume creation time from 4 hours to under 10 minutes, giving job seekers a competitive edge in today's fast-moving market.</p>
+      </div>
+
+      <div class="max-w-3xl mx-auto px-6 pb-16 prose-cs">
+        <h2>Strategic Roadmap</h2>
+        <p>In mid-2026, QCV will launch its 'Smart Matching' feature, which connects your verified resume directly with recruiters looking for your specific skill set.</p>
+        <hr />
+        <p><em>Stand out in your next application. <a href="index.html#contact">Get early access to QCV</a>.</em></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="border-t border-zinc-100 dark:border-zinc-900">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
+      <p class="text-sm text-zinc-400">&copy; 2026 Mohamed Ayman. All rights reserved.</p>
+      <p class="text-xs text-zinc-500">Built with QCV Analytics Lab</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>
