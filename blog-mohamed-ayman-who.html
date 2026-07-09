@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+  x-data="{ dark: localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme: dark)').matches), scrolled:false, mobileMenu:false, progress:0 }"
+  :class="{'dark':dark}"
+  x-init="$watch('dark',v=>localStorage.setItem('theme',v?'dark':'light'));window.addEventListener('scroll',()=>{scrolled=window.scrollY>20;progress=Math.min(100,Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100));},{passive:true})"
+  class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="manager.png" type="image/png" />
+  <meta name="description" content="تعرف على محمد أيمن (Mohamed Ayman) — مطور مواقع، رائد أعمال، وخبير SEO. السيرة الكاملة، المشاريع، والخبرات التقنية لعام 2026." />
+  <meta name="keywords" content="محمد أيمن, Mohamed Ayman, من هو محمد أيمن, مطور مواقع, محمد أيمن 2026, Vexonet, portfolio محمد أيمن" />
+  <meta name="author" content="Mohamed Ayman - محمد أيمن" />
+  <meta property="og:title" content="من هو محمد أيمن؟ السيرة الكاملة والخبرات التقنية 2026" />
+  <meta property="og:description" content="تعرف على محمد أيمن (Mohamed Ayman) — مطور مواقع، رائد أعمال، وخبير SEO. السيرة الكاملة، المشاريع، والخبرات التقنية لعام 2026." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://mohamedayman.online/blog-mohamed-ayman-who.html" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80" />
+  <meta property="og:site_name" content="Mohamed Ayman - محمد أيمن" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="من هو محمد أيمن؟ السيرة الكاملة والخبرات التقنية 2026" />
+  <meta name="twitter:description" content="تعرف على محمد أيمن (Mohamed Ayman) — مطور مواقع، رائد أعمال، وخبير SEO. السيرة الكاملة، المشاريع، والخبرات التقنية لعام 2026." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80" />
+  <link rel="canonical" href="https://mohamedayman.online/blog-mohamed-ayman-who.html" />
+  <title>من هو محمد أيمن؟ السيرة الكاملة والخبرات التقنية 2026</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "من هو محمد أيمن؟ السيرة الكاملة والخبرات التقنية في 2026",
+    "description": "تعرف على محمد أيمن (Mohamed Ayman) — مطور مواقع، رائد أعمال، وخبير SEO. السيرة الكاملة، المشاريع، والخبرات التقنية لعام 2026.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80",
+    "author": {
+      "@type": "Person",
+      "name": "Mohamed Ayman",
+      "alternateName": "محمد أيمن",
+      "url": "https://mohamedayman.online/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Mohamed Ayman",
+      "url": "https://mohamedayman.online/"
+    },
+    "datePublished": "2026-07-09",
+    "dateModified": "2026-07-09",
+    "mainEntityOfPage": "https://mohamedayman.online/blog-mohamed-ayman-who.html",
+    "inLanguage": "ar"
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { display: ['PT Sans', 'sans-serif'], body: ['DM Sans', 'sans-serif'] }, colors: { accent: '#FF6B2B', 'accent-light': '#FF8F5C' } } } }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'PT Sans', sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #FF6B2B; border-radius: 99px; }
+    body { transition: background-color .3s, color .3s; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: .4;
+    }
+    .prose-article h2 { font-size: 1.7rem; font-weight: 700; margin: 2.5rem 0 1rem; line-height: 1.3; color: #FF6B2B; }
+    .prose-article p { margin: 0 0 1.5rem; line-height: 1.8; color: #52525b; font-size: 1.05rem; }
+    .dark .prose-article p { color: #a1a1aa; }
+    .progress-bar { position: fixed; top: 0; right: 0; height: 3px; background: #FF6B2B; z-index: 100; transition: width .1s; }
+    [x-cloak] { display: none !important; }
+    .card-h { transition: transform .28s cubic-bezier(.4, 0, .2, 1), border-color .18s; }
+    .card-h:hover { transform: translateY(-4px); }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased rtl">
+  <div class="progress-bar" :style="`width:${progress}%`" role="progressbar"></div>
+
+  <header class="fixed top-0.5 left-0 right-0 z-50 transition-all duration-300"
+    :class="scrolled?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5':'bg-transparent'">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="font-display font-bold text-xl tracking-tight z-10">
+        <span class="text-zinc-900 dark:text-white">محمد</span><span class="text-accent"> أيمن</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <li><a href="blog.html" class="text-accent">المدونة</a></li>
+        <li><a href="index.html" class="hover:text-accent transition-colors">الرئيسية</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <article class="pt-32 pb-12 max-w-4xl mx-auto px-6 prose-article text-justify">
+      <a href="blog.html" class="inline-flex items-center gap-2 text-sm text-zinc-500 mb-8 border border-zinc-200 dark:border-zinc-800 px-4 py-2 rounded-full hover:border-accent hover:text-accent transition-all">
+        ← العودة للمدونة
+      </a>
+
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">ريادة أعمال</span>
+        <span class="text-xs text-zinc-400">9 يوليو 2026 · 15 دقيقة قراءة</span>
+      </div>
+
+      <h1 class="font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6">من هو محمد أيمن؟ السيرة الكاملة والخبرات التقنية في 2026</h1>
+
+      <p class="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8 font-medium">إذا بحثت عن اسم محمد أيمن على الإنترنت، فأنت في المكان الصحيح. أنا محمد أيمن (Mohamed Ayman)، مطور مواقع ومبدع محتوى عربي متخصص في ريادة الأعمال والتقنية. في هذا المقال أشاركك رحلتي الكاملة، خبراتي، ومشاريعي التي بنيتها على مدار سنوات.</p>
+
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80" alt="محمد أيمن Mohamed Ayman مطور مواقع" class="w-full h-72 md:h-96 object-cover rounded-2xl mb-12 shadow-xl" loading="lazy" />
+
+      <h2>من هو محمد أيمن؟</h2>
+      <p>محمد أيمن هو مطور مواقع ومصمم واجهات متخصص في بناء تجارب رقمية عربية احترافية. أعمل على تطوير مواقع باستخدام Tailwind CSS وAlpine.js وWordPress، مع تركيز خاص على تحسين محركات البحث SEO للمحتوى العربي. موقعي الرسمي mohamedayman.online يضم Portfolio كامل لأعمالي ومدونة تقنية عربية.</p>
+
+      <h2>خبرات محمد أيمن التقنية</h2>
+      <p>على مدار سنوات، طورت محمد أيمن عشرات المشاريع الرقمية: من مواقع WordPress للشركات، إلى متاجر إلكترونية على EasyOrders وWuilt، وصولاً إلى تطبيقات ويب مخصصة. أتخصص في: تطوير الواجهات الأمامية، تحسين سرعة المواقع، SEO للمحتوى العربي، ودمج الذكاء الاصطناعي في المشاريع.</p>
+
+      <h2>مشاريع محمد أيمن البارزة</h2>
+      <p>من أبرز مشاريع محمد أيمن: بناء مواقع شركات، تطوير Portfolio احترافية، إنشاء مدونات SEO بالعربية، وإطلاق مشاريع ريادة أعمال رقمية. كل مشروع يركز على الجودة، السرعة، وتجربة المستخدم المتميزة.</p>
+
+      <h2>لماذا تثق بمحمد أيمن؟</h2>
+      <p>محمد أيمن يجمع بين الخبرة التقنية العميقة والفهم الحقيقي لاحتياجات السوق العربي. لا أبيع وعوداً فارغة — أقدم حلولاً عملية مبنية على تجربة حقيقية. تواصل معي عبر mohamedayman.online لأي استشارة أو مشروع.</p>
+
+
+
+      <section class="mt-20 pt-10 border-t border-zinc-100 dark:border-zinc-900">
+        <h3 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-8">مقالات ذات صلة من محمد أيمن</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <article class="card-h group bg-zinc-50 dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 p-4">
+            <a href="blog-personal-brand.html">
+              <h4 class="font-bold text-lg mb-2 group-hover:text-accent transition-colors">بناء العلامة الشخصية الرقمية: استراتيجية محمد أيمن</h4>
+              <p class="text-xs text-zinc-500">اقرأ المزيد ←</p>
+            </a>
+          </article>
+          <article class="card-h group bg-zinc-50 dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 p-4">
+            <a href="blog-portfolio-design.html">
+              <h4 class="font-bold text-lg mb-2 group-hover:text-accent transition-colors">تصميم Portfolio احترافي يجلب العملاء | محمد أيمن</h4>
+              <p class="text-xs text-zinc-500">اقرأ المزيد ←</p>
+            </a>
+          </article>
+
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="py-12 text-center border-t border-zinc-100 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-900/50">
+    <p class="text-sm text-zinc-500 mb-2">محمد أيمن (Mohamed Ayman) - مطور مواقع وخبير تقني</p>
+    <p class="text-xs text-zinc-400">© 2026 جميع الحقوق محفوظة لـ <a href="https://mohamedayman.online/" class="text-accent hover:underline">محمد أيمن</a></p>
+  </footer>
+</body>
+</html>

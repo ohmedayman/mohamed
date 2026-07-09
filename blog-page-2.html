@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+  x-data="{ dark: localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme: dark)').matches), scrolled:false, mobileMenu:false }"
+  :class="{'dark':dark}"
+  x-init="$watch('dark',v=>localStorage.setItem('theme',v?'dark':'light'));window.addEventListener('scroll',()=>scrolled=window.scrollY>20,{passive:true})"
+  class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="manager.png" type="image/png" />
+  <meta name="description" content="مقالات محمد أيمن الجديدة: SEO، Tailwind CSS، العمل الحر، ecommerce، والعلامة الشخصية. صفحة 2 من مدونة محمد أيمن." />
+  <meta name="keywords" content="محمد أيمن, Mohamed Ayman, مدونة محمد أيمن, مقالات تقنية, SEO عربي, مطور مواقع" />
+  <meta name="author" content="Mohamed Ayman - محمد أيمن" />
+  <link rel="canonical" href="https://mohamedayman.online/blog-page-2.html" />
+  <title>مدونة محمد أيمن | مقالات جديدة — صفحة 2</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { display: ['PT Sans', 'sans-serif'], body: ['DM Sans', 'sans-serif'] }, colors: { accent: '#FF6B2B', 'accent-light': '#FF8F5C' } } } }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3 { font-family: 'PT Sans', sans-serif; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .08s; }
+    .reveal-delay-2 { transition-delay: .16s; }
+    .reveal-delay-3 { transition-delay: .24s; }
+    .nav-link { position: relative; }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1.5px; background: currentColor; transition: width .25s; }
+    .nav-link:hover::after { width: 100%; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: #FF6B2B; border-radius: 99px; }
+    body { transition: background-color .3s, color .3s; }
+    .card { transition: transform .3s, border-color .2s; }
+    .card:hover { transform: translateY(-3px); }
+    .photo-frame { overflow: hidden; background: #e4e4e7; }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    [x-cloak] { display: none !important; }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased rtl">
+
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    :class="scrolled?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm':'bg-transparent'">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="font-display font-bold text-xl tracking-tight">
+        <span class="text-zinc-900 dark:text-white">محمد</span><span class="text-accent"> أيمن</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <li><a href="index.html#services" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-accent">الخدمات</a></li>
+        <li><a href="projects.html" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-accent">الأعمال</a></li>
+        <li><a href="blog.html" class="nav-link text-accent font-medium">المدونة</a></li>
+        <li><a href="index.html#contact" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-accent">تواصل</a></li>
+      </ul>
+      <button @click="dark=!dark" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800" aria-label="Toggle theme">
+        <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg x-show="dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="pt-36 pb-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">مدونة محمد أيمن</p>
+        <h1 class="reveal reveal-delay-1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white mb-4">مقالات جديدة — صفحة 2</h1>
+        <p class="reveal reveal-delay-2 text-lg text-zinc-500 dark:text-zinc-400 max-w-xl">10 مقالات SEO جديدة من محمد أيمن عن التقنية، ريادة الأعمال، والتسويق الرقمي.</p>
+      </div>
+    </section>
+
+    <section class="pb-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid md:grid-cols-3 gap-6">
+
+          <article class="reveal card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+            <div class="photo-frame w-full h-44"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80" alt="من هو محمد أيمن" loading="lazy"/></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3"><span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-2.5 py-1 rounded-full">ريادة أعمال</span><span class="text-xs text-zinc-400">9 يوليو 2026</span></div>
+              <a href="blog-mohamed-ayman-who.html"><h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">من هو محمد أيمن؟ السيرة الكاملة 2026</h3></a>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">تعرف على محمد أيمن — مطور مواقع، رائد أعمال، وخبير SEO.</p>
+              <a href="blog-mohamed-ayman-who.html" class="text-sm font-medium nav-link">اقرأ المزيد →</a>
+            </div>
+          </article>
+
+          <article class="reveal reveal-delay-1 card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+            <div class="photo-frame w-full h-44"><img src="https://images.unsplash.com/photo-1432888622747-4eb9ff8fdeb8?w=700&q=80" alt="SEO عربي محمد أيمن" loading="lazy"/></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3"><span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border px-2.5 py-1 rounded-full">تقنية</span><span class="text-xs text-zinc-400">9 يوليو 2026</span></div>
+              <a href="blog-seo-arabic.html"><h3 class="font-display font-bold text-lg mb-2 group-hover:text-accent transition-colors">تحسين SEO للمواقع العربية | محمد أيمن</h3></a>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">دليل SEO عربي شامل للظهور في المركز الأول على جوجل.</p>
+              <a href="blog-seo-arabic.html" class="text-sm font-medium nav-link">اقرأ المزيد →</a>
+            </div>
+          </article>
+
+          <article class="reveal reveal-delay-2 card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+            <div class="photo-frame w-full h-44"><img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=700&q=80" alt="Tailwind CSS محمد أيمن" loading="lazy"/></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3"><span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border px-2.5 py-1 rounded-full">برمجة</span><span class="text-xs text-zinc-400">9 يوليو 2026</span></div>
+              <a href="blog-tailwind-guide.html"><h3 class="font-display font-bold text-lg mb-2 group-hover:text-accent transition-colors">دليل Tailwind CSS 2026 | محمد أيمن</h3></a>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">لماذا يختار محمد أيمن Tailwind في كل مشروع.</p>
+              <a href="blog-tailwind-guide.html" class="text-sm font-medium nav-link">اقرأ المزيد →</a>
+            </div>
+          </article>
+
+          <article class="reveal card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+            <div class="photo-frame w-full h-44"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&q=80" alt="العمل الحر محمد أيمن" loading="lazy"/></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3"><span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border px-2.5 py-1 rounded-full">ريادة أعمال</span><span class="text-xs text-zinc-400">9 يوليو 2026</span></div>
+              <a href="blog-freelance-dev.html"><h3 class="font-display font-bold text-lg mb-2 group-hover:text-accent transition-colors">العمل الحر للمطورين | محمد أيمن</h3></a>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">تجربة محمد أيمن الكاملة في Freelancing 2026.</p>
+              <a href="blog-freelance-dev.html" class="text-sm font-medium nav-link">اقرأ المزيد →</a>
+            </div>
+          </article>
+
+          <article class="reveal reveal-delay-1 card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+            <div class="photo-frame w-full h-44"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80" alt="متجر إلكتروني محمد أيمن" loading="lazy"/></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3"><span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border px-2.5 py-1 rounded-full">ريادة أعمال</span><span class="text-xs text-zinc-400">9 يوليو 2026</span></div>
+              <a href="blog-ecommerce-guide.html"><h3 class="font-display font-bold text-lg mb-2 group-hover:text-accent transition-colors">كيف تبني متجرك الإلكتروني 2026</h3></a>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">دليل محمد أيمن العملي لإطلاق متجر ناجح.</p>
+              <a href="blog-ecommerce-guide.html" class="text-sm font-medium nav-link">اقرأ المزيد →</a>
+            </div>
+          </article>
+
+          <article class="reveal reveal-delay-2 card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+            <div class="photo-frame w-full h-44"><img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=700&q=80" alt="العلامة الشخصية محمد أيمن" loading="lazy"/></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3"><span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border px-2.5 py-1 rounded-full">ريادة أعمال</span><span class="text-xs text-zinc-400">9 يوليو 2026</span></div>
+              <a href="blog-personal-brand.html"><h3 class="font-display font-bold text-lg mb-2 group-hover:text-accent transition-colors">بناء العلامة الشخصية الرقمية</h3></a>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">استراتيجية محمد أيمن للظهور أولاً على جوجل.</p>
+              <a href="blog-personal-brand.html" class="text-sm font-medium nav-link">اقرأ المزيد →</a>
+            </div>
+          </article>
+
+          <article class="reveal card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+            <div class="photo-frame w-full h-44"><img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=700&q=80" alt="Portfolio محمد أيمن" loading="lazy"/></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3"><span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border px-2.5 py-1 rounded-full">برمجة</span><span class="text-xs text-zinc-400">9 يوليو 2026</span></div>
+              <a href="blog-portfolio-design.html"><h3 class="font-display font-bold text-lg mb-2 group-hover:text-accent transition-colors">تصميم Portfolio يجلب العملاء</h3></a>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">دليل محمد أيمن لموقع شخصي احترافي.</p>
+              <a href="blog-portfolio-design.html" class="text-sm font-medium nav-link">اقرأ المزيد →</a>
+            </div>
+          </article>
+
+          <article class="reveal reveal-delay-1 card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+            <div class="photo-frame w-full h-44"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80" alt="سرعة المواقع محمد أيمن" loading="lazy"/></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3"><span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border px-2.5 py-1 rounded-full">تقنية</span><span class="text-xs text-zinc-400">9 يوليو 2026</span></div>
+              <a href="blog-web-speed.html"><h3 class="font-display font-bold text-lg mb-2 group-hover:text-accent transition-colors">تحسين سرعة المواقع | محمد أيمن</h3></a>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">أسرار Core Web Vitals من محمد أيمن.</p>
+              <a href="blog-web-speed.html" class="text-sm font-medium nav-link">اقرأ المزيد →</a>
+            </div>
+          </article>
+
+          <article class="reveal reveal-delay-2 card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+            <div class="photo-frame w-full h-44"><img src="https://images.unsplash.com/photo-1618477388954-7859fbf257af?w=700&q=80" alt="WordPress محمد أيمن" loading="lazy"/></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3"><span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border px-2.5 py-1 rounded-full">برمجة</span><span class="text-xs text-zinc-400">9 يوليو 2026</span></div>
+              <a href="blog-wordpress-guide.html"><h3 class="font-display font-bold text-lg mb-2 group-hover:text-accent transition-colors">ووردبريس أم تطوير مخصص؟</h3></a>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">رأي محمد أيمن الصريح في 2026.</p>
+              <a href="blog-wordpress-guide.html" class="text-sm font-medium nav-link">اقرأ المزيد →</a>
+            </div>
+          </article>
+
+          <article class="reveal card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+            <div class="photo-frame w-full h-44"><img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=700&q=80" alt="تسويق المحتوى محمد أيمن" loading="lazy"/></div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 mb-3"><span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border px-2.5 py-1 rounded-full">ريادة أعمال</span><span class="text-xs text-zinc-400">9 يوليو 2026</span></div>
+              <a href="blog-content-marketing.html"><h3 class="font-display font-bold text-lg mb-2 group-hover:text-accent transition-colors">التسويق بالمحتوى للمشاريع العربية</h3></a>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">نصائح محمد أيمن لجذب عملاء عبر المدونة.</p>
+              <a href="blog-content-marketing.html" class="text-sm font-medium nav-link">اقرأ المزيد →</a>
+            </div>
+          </article>
+
+        </div>
+
+        <nav class="reveal flex items-center justify-center gap-2 mt-14" aria-label="Pagination">
+          <a href="blog.html" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-accent hover:text-accent transition-colors text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </a>
+          <a href="blog.html" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-accent hover:text-accent transition-colors text-sm">1</a>
+          <span class="w-9 h-9 flex items-center justify-center rounded-full bg-accent text-white text-sm font-medium">2</span>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-zinc-100 dark:border-zinc-900">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-zinc-400">© <span id="year"></span> محمد أيمن (Mohamed Ayman). جميع الحقوق محفوظة.</p>
+      <a href="https://mohamedayman.online/" class="text-xs text-zinc-500 hover:text-accent">mohamedayman.online</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: .1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
