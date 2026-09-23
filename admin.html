@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" x-data="adminApp()" :class="{'dark': dark}" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم الذكية | محمد أيمن — Mohamed Ayman CMS</title>
+  <link rel="icon" href="manager.png" type="image/png">
+  <meta name="robots" content="noindex, nofollow">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { display: ['Alexandria', 'sans-serif'], body: ['Alexandria', 'sans-serif'] },
+          colors: { accent: '#FF6B2B', 'accent-light': '#FF8F5C', 'accent-dark': '#E05316' }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { font-family: 'Alexandria', sans-serif; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #FF6B2B; border-radius: 99px; }
+    [x-cloak] { display: none !important; }
+  </style>
+</head>
+
+<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 min-h-screen antialiased transition-colors duration-200">
+
+  <!-- ==================== PIN GATE (SECURITY) ==================== -->
+  <div x-show="!authenticated" x-cloak class="fixed inset-0 z-50 bg-zinc-900/90 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-8 max-w-md w-full shadow-2xl text-center">
+      <div class="w-16 h-16 mx-auto mb-4 bg-orange-100 dark:bg-orange-950/40 text-accent rounded-2xl flex items-center justify-center">
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+      </div>
+      <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-2">لوحة تحكم الموقع</h2>
+      <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">أدخل رمز الدخول السري (الرمز الافتراضي: 2026)</p>
+      
+      <form @submit.prevent="checkPin">
+        <input type="password" x-model="pinInput" placeholder="رمز الدخول (PIN)" autofocus
+          class="w-full text-center text-2xl tracking-widest px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:border-accent mb-4">
+        
+        <p x-show="pinError" class="text-red-500 text-xs mb-4">رمز الدخول غير صحيح، يرجى المحاولة ثانية</p>
+
+        <button type="submit" class="w-full bg-accent hover:bg-accent-dark text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg shadow-orange-500/20">
+          تسجيل الدخول
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN DASHBOARD ==================== -->
+  <div x-show="authenticated" x-cloak class="min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800">
+      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="index.html" target="_blank" class="font-display font-bold text-xl flex items-center gap-2">
+            <span class="text-zinc-900 dark:text-white">محمد</span><span class="text-accent"> أيمن</span>
+            <span class="text-xs bg-orange-100 dark:bg-orange-950/50 text-accent font-semibold px-2.5 py-0.5 rounded-full border border-orange-200 dark:border-orange-800">لوحة التحكم</span>
+          </a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="index.html" target="_blank" class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 hover:border-accent transition-colors flex items-center gap-1.5">
+            <span>معاينة الموقع الحي</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+
+          <button @click="dark = !dark; localStorage.setItem('theme', dark ? 'dark' : 'light')"
+            class="w-9 h-9 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            <svg x-show="!dark" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            <svg x-show="dark" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+          </button>
+
+          <button @click="logout" class="text-xs text-red-500 hover:text-red-600 font-semibold px-3 py-1.5 rounded-lg border border-red-200 dark:border-red-900/30">
+            خروج
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <div class="max-w-7xl mx-auto px-6 py-8 w-full flex-1 flex flex-col md:flex-row gap-8">
+
+      <!-- Sidebar Tabs -->
+      <aside class="w-full md:w-64 shrink-0">
+        <nav class="space-y-1 bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-200 dark:border-zinc-800">
+          <button @click="activeTab = 'profile'" :class="activeTab === 'profile' ? 'bg-accent text-white' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'"
+            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-colors text-right">
+            <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span>بيانات التواصل والهوية</span>
+          </button>
+
+          <button @click="activeTab = 'seo'" :class="activeTab === 'seo' ? 'bg-accent text-white' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'"
+            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-colors text-right">
+            <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <span>محرك الـ SEO والأرشفة</span>
+          </button>
+
+          <button @click="activeTab = 'projects'" :class="activeTab === 'projects' ? 'bg-accent text-white' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'"
+            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-colors text-right">
+            <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span>إدارة المشاريع</span>
+          </button>
+
+          <button @click="activeTab = 'blogs'" :class="activeTab === 'blogs' ? 'bg-accent text-white' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'"
+            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-colors text-right">
+            <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+            <span>المقالات والمدونة</span>
+          </button>
+
+          <button @click="activeTab = 'publish'" :class="activeTab === 'publish' ? 'bg-emerald-600 text-white' : 'text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30'"
+            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-colors text-right">
+            <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+            <span>النشر السحابي المباشر</span>
+          </button>
+        </nav>
+
+        <!-- Status Card -->
+        <div class="mt-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs space-y-2">
+          <p class="font-bold text-zinc-700 dark:text-zinc-300">حالة المزامنة:</p>
+          <div class="flex items-center gap-2 text-emerald-500">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>لوحة التحكم نشطة ومتصلة</span>
+          </div>
+          <p class="text-zinc-400">التعديلات تنعكس فوراً وتسمع في كافة صفحات الموقع.</p>
+        </div>
+      </aside>
+
+      <!-- Main Panels -->
+      <main class="flex-1 bg-white dark:bg-zinc-900 p-8 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
+
+        <!-- TAB 1: PROFILE & CONTACT -->
+        <section x-show="activeTab === 'profile'" class="space-y-6">
+          <div class="border-b border-zinc-200 dark:border-zinc-800 pb-4 flex items-center justify-between">
+            <div>
+              <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white">بيانات التواصل والهوية الشخصية</h2>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400">البيانات التي تظهر في قسم الهيرو، من أنا، وقسم تواصل معنا في الأسفل.</p>
+            </div>
+            <button @click="saveLocal" class="bg-accent hover:bg-accent-dark text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-all shadow-md">
+              حفظ التعديلات
+            </button>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">الاسم بالعربية</label>
+              <input type="text" x-model="config.profile.nameAr" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">الاسم بالإنجليزية</label>
+              <input type="text" x-model="config.profile.nameEn" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">رقم الهاتف (اتصال مباشر)</label>
+              <input type="text" x-model="config.profile.phone" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+              <span class="text-[11px] text-zinc-400 mt-1 block">يسمع تلقائياً في رابط tel:01028707543</span>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">رقم الواتساب (بالكود الدولي بدون +)</label>
+              <input type="text" x-model="config.profile.whatsapp" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+              <span class="text-[11px] text-zinc-400 mt-1 block">مثال: 201028707543</span>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">البريد الإلكتروني الرسمي</label>
+              <input type="email" x-model="config.profile.email" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">رابط LinkedIn</label>
+              <input type="url" x-model="config.profile.linkedin" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+            </div>
+
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">المسمى الوظيفي بالعربية</label>
+              <input type="text" x-model="config.profile.titleAr" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">سنوات الخبرة</label>
+              <input type="text" x-model="config.profile.experienceYears" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">عدد العملاء السعداء</label>
+              <input type="text" x-model="config.profile.happyClients" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 2: SEO ENGINE -->
+        <section x-show="activeTab === 'seo'" class="space-y-6">
+          <div class="border-b border-zinc-200 dark:border-zinc-800 pb-4 flex items-center justify-between">
+            <div>
+              <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white">محرك الـ SEO والأرشفة في جوجل</h2>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400">تحكم بالكلمات الدلالية، عناوين الظهور في محرك البحث، وبناء الـ Knowledge Graph لاسم محمد أيمن.</p>
+            </div>
+            <button @click="saveLocal" class="bg-accent hover:bg-accent-dark text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-all shadow-md">
+              حفظ إعدادات الـ SEO
+            </button>
+          </div>
+
+          <div class="space-y-5">
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">عنوان الموقع الرئيسي في جوجل (Meta Title)</label>
+              <input type="text" x-model="config.seo.defaultTitle" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">وصف الموقع في نتائج البحث (Meta Description)</label>
+              <textarea rows="3" x-model="config.seo.defaultDescription" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent resize-none"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">الكلمات المفتاحية المستهدفة (Keywords)</label>
+              <textarea rows="3" x-model="config.seo.keywords" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent resize-none"></textarea>
+              <span class="text-[11px] text-zinc-400 mt-1 block">تأكد دائماً من وجود "محمد أيمن" و "Mohamed Ayman" في البداية.</span>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">رابط صورة المشاركة الاجتماعية (Open Graph Image)</label>
+              <input type="text" x-model="config.seo.ogImage" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 3: PROJECTS CMS -->
+        <section x-show="activeTab === 'projects'" class="space-y-6">
+          <div class="border-b border-zinc-200 dark:border-zinc-800 pb-4 flex items-center justify-between">
+            <div>
+              <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white">إدارة المشاريع وسابقة الأعمال</h2>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400">تعديل وإضافة المشاريع المعروضة في الصفحة الرئيسية وصفحة المشاريع.</p>
+            </div>
+            <button @click="addProject" class="bg-zinc-900 dark:bg-zinc-800 text-white font-bold text-sm px-4 py-2 rounded-xl hover:bg-accent transition-colors flex items-center gap-1.5">
+              <span>+ إضافة مشروع جديد</span>
+            </button>
+          </div>
+
+          <div class="space-y-4">
+            <template x-for="(p, index) in config.projects" :key="p.id">
+              <div class="p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 space-y-4">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-display font-bold text-lg text-accent" x-text="p.title || 'مشروع جديد'"></h3>
+                  <button @click="removeProject(index)" class="text-xs text-red-500 hover:text-red-700 font-bold">
+                    حذف المشروع
+                  </button>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold mb-1">اسم المشروع</label>
+                    <input type="text" x-model="p.title" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1">التصنيف</label>
+                    <input type="text" x-model="p.categoryLabel" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1">السنة</label>
+                    <input type="text" x-model="p.year" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs">
+                  </div>
+                  <div class="md:col-span-2">
+                    <label class="block text-xs font-bold mb-1">رابط الصورة</label>
+                    <input type="text" x-model="p.img" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1">رابط الصفحة</label>
+                    <input type="text" x-model="p.url" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs">
+                  </div>
+                  <div class="md:col-span-3">
+                    <label class="block text-xs font-bold mb-1">الوصف</label>
+                    <textarea rows="2" x-model="p.desc" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs resize-none"></textarea>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <div class="pt-4 flex justify-end">
+            <button @click="saveLocal" class="bg-accent hover:bg-accent-dark text-white font-bold text-sm px-6 py-3 rounded-xl transition-all shadow-md">
+              حفظ قائمة المشاريع
+            </button>
+          </div>
+        </section>
+
+        <!-- TAB 4: BLOG CMS -->
+        <section x-show="activeTab === 'blogs'" class="space-y-6">
+          <div class="border-b border-zinc-200 dark:border-zinc-800 pb-4 flex items-center justify-between">
+            <div>
+              <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white">إدارة مقالات المدونة</h2>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400">إدارة المقالات المنشورة لرفع ترتيب محركات البحث لاسم محمد أيمن.</p>
+            </div>
+            <button @click="addArticle" class="bg-zinc-900 dark:bg-zinc-800 text-white font-bold text-sm px-4 py-2 rounded-xl hover:bg-accent transition-colors">
+              + مقال جديد
+            </button>
+          </div>
+
+          <div class="space-y-4">
+            <template x-for="(art, index) in config.articles" :key="index">
+              <div class="p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 space-y-4">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-display font-bold text-base text-zinc-900 dark:text-white" x-text="art.title"></h3>
+                  <button @click="removeArticle(index)" class="text-xs text-red-500 hover:text-red-700 font-bold">
+                    حذف
+                  </button>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                  <div class="md:col-span-2">
+                    <label class="block text-xs font-bold mb-1">عنوان المقال</label>
+                    <input type="text" x-model="art.title" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1">التاريخ</label>
+                    <input type="text" x-model="art.date" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1">التصنيف</label>
+                    <input type="text" x-model="art.category" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1">رابط المقال (HTML)</label>
+                    <input type="text" x-model="art.url" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1">رابط الصورة البارزة</label>
+                    <input type="text" x-model="art.img" class="w-full px-3 py-2 rounded-lg border dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs">
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <div class="pt-4 flex justify-end">
+            <button @click="saveLocal" class="bg-accent hover:bg-accent-dark text-white font-bold text-sm px-6 py-3 rounded-xl transition-all shadow-md">
+              حفظ المقالات
+            </button>
+          </div>
+        </section>
+
+        <!-- TAB 5: PUBLISH & SYNC -->
+        <section x-show="activeTab === 'publish'" class="space-y-6">
+          <div class="border-b border-zinc-200 dark:border-zinc-800 pb-4">
+            <h2 class="font-display font-bold text-2xl text-emerald-600 dark:text-emerald-400">النشر السحابي المباشر لجميع الزوار</h2>
+            <p class="text-sm text-zinc-500 dark:text-zinc-400">هنا يمكنك جعل أي تعديل قمت به في لوحة التحكم يظهر فوراً لجميع الناس على الإنترنت عبر GitHub Pages / Host.</p>
+          </div>
+
+          <!-- Method 1: GitHub Cloud Sync -->
+          <div class="p-6 rounded-2xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/50 dark:bg-emerald-950/20 space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm">1</span>
+              <h3 class="font-display font-bold text-lg text-emerald-700 dark:text-emerald-300">النشر التلقائي عبر GitHub API (موصى به)</h3>
+            </div>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              إذا أدخلت رمز GitHub Personal Access Token الخاص بحسابك (<code class="bg-zinc-200 dark:bg-zinc-800 px-1 py-0.5 rounded">ghp_...</code>) سيتم حفظ ونشر التعديلات بضغطة زر واحدة على مستودعك <code class="font-bold">ohmedayman/mohamed</code> لتظهر لجميع الناس على الإنترنت مباشرة!
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">GitHub Personal Access Token (PAT)</label>
+                <input type="password" x-model="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" class="w-full px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm focus:outline-none focus:border-emerald-500">
+                <span class="text-[11px] text-zinc-400 block mt-1">يُحفظ بأمان في متصفحك الشخصي فقط ولا يُشارك.</span>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">المستودع (Repository)</label>
+                <input type="text" x-model="githubRepo" readonly class="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-800 text-sm text-zinc-500 cursor-not-allowed">
+              </div>
+            </div>
+
+            <div class="pt-2 flex items-center gap-4">
+              <button @click="publishToGithub" :disabled="isPublishing"
+                class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-8 py-3 rounded-xl transition-all shadow-lg shadow-emerald-600/20 disabled:opacity-50 flex items-center gap-2">
+                <svg x-show="!isPublishing" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                <span x-text="isPublishing ? 'جاري النشر السحابي...' : 'نشر التحديثات على الموقع الآن'"></span>
+              </button>
+
+              <span x-show="publishSuccess" class="text-xs font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1.5 rounded-lg">
+                تم النشر بنجاح! التحديثات ستظهر لجميع الزوار خلال ثوانٍ.
+              </span>
+              <span x-show="publishError" class="text-xs font-bold text-red-600 bg-red-100 dark:bg-red-900/40 px-3 py-1.5 rounded-lg" x-text="publishError"></span>
+            </div>
+          </div>
+
+          <!-- Method 2: Download Config Backup -->
+          <div class="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-zinc-800 text-white flex items-center justify-center font-bold text-sm">2</span>
+              <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white">تنزيل ملف الإعدادات الاحتياطي (Manual Export)</h3>
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400">
+              يمكنك تنزيل ملف <code class="font-bold">site-config.json</code> ووضعه داخل مجلد <code class="font-bold">assets/</code> في مشروعك متى أردت.
+            </p>
+            <button @click="downloadConfig" class="border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:border-accent text-zinc-800 dark:text-zinc-200 font-bold text-xs px-5 py-2.5 rounded-xl transition-colors">
+              تحميل ملف site-config.json 📥
+            </button>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div x-show="toastMsg" x-cloak x-transition
+    class="fixed bottom-6 left-6 z-50 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-bold text-sm px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-2 border border-zinc-700">
+    <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    <span x-text="toastMsg"></span>
+  </div>
+
+  <script>
+    function adminApp() {
+      return {
+        dark: localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches),
+        authenticated: sessionStorage.getItem('ma_admin_auth') === 'true',
+        pinInput: '',
+        pinError: false,
+        activeTab: 'profile',
+        toastMsg: '',
+        isPublishing: false,
+        publishSuccess: false,
+        publishError: '',
+        githubRepo: 'ohmedayman/mohamed',
+        githubToken: localStorage.getItem('ma_gh_token') || '',
+
+        config: {
+          profile: {
+            nameAr: 'محمد أيمن',
+            nameEn: 'Mohamed Ayman',
+            titleAr: 'مطور مواقع وتطبيقات ويب محترف وخبير SEO',
+            titleEn: 'Full-Stack Web Developer & SEO Specialist',
+            phone: '01028707543',
+            whatsapp: '201028707543',
+            email: 'info@mohamedayman.online',
+            website: 'https://mohamedayman.online',
+            linkedin: 'https://www.linkedin.com/in/mohmed-ayman/',
+            github: 'https://github.com/ohmedayman',
+            experienceYears: '2+',
+            happyClients: '15+',
+            completedProjects: '20+'
+          },
+          seo: {
+            defaultTitle: 'محمد أيمن | مطور مواقع ومصمم حلول ويب ذكية — Mohamed Ayman',
+            defaultDescription: 'الموقع الرسمي للمطور محمد أيمن (Mohamed Ayman) — خدمات تطوير مواقع، مشاريع رقمية، وتحسين محركات البحث SEO وتصميم واجهات المستخدم.',
+            keywords: 'محمد أيمن, Mohamed Ayman, مطور مواقع, تصميم مواقع, SEO عربي, برمجة, Vexonet, Proof Media, Qcv, Tailwind CSS, فرونت اند, full-stack developer',
+            ogImage: 'https://mohamedayman.online/assets/profile.jpg',
+            canonicalBase: 'https://mohamedayman.online/'
+          },
+          projects: [],
+          articles: []
+        },
+
+        init() {
+          // Fetch existing config from file or localStorage
+          fetch('assets/site-config.json?t=' + Date.now())
+            .then(res => res.json())
+            .then(data => {
+              if (data) this.config = Object.assign(this.config, data);
+            })
+            .catch(() => {
+              const saved = localStorage.getItem('ma_site_config');
+              if (saved) {
+                try { this.config = JSON.parse(saved); } catch(e){}
+              }
+            });
+        },
+
+        checkPin() {
+          if (this.pinInput === '2026' || this.pinInput === 'admin2026') {
+            this.authenticated = true;
+            sessionStorage.setItem('ma_admin_auth', 'true');
+            this.pinError = false;
+          } else {
+            this.pinError = true;
+          }
+        },
+
+        logout() {
+          this.authenticated = false;
+          sessionStorage.removeItem('ma_admin_auth');
+          this.pinInput = '';
+        },
+
+        showToast(msg) {
+          this.toastMsg = msg;
+          setTimeout(() => { this.toastMsg = ''; }, 3000);
+        },
+
+        saveLocal() {
+          localStorage.setItem('ma_site_config', JSON.stringify(this.config));
+          this.showToast('تم حفظ التعديلات محلياً بنجاح!');
+        },
+
+        addProject() {
+          const newId = Date.now();
+          this.config.projects.unshift({
+            id: newId,
+            title: 'مشروع جديد',
+            category: 'business',
+            categoryLabel: 'Business',
+            year: new Date().getFullYear().toString(),
+            desc: 'وصف مختصر للمشروع والخدمات المقدمة فيه.',
+            img: 'assets/projects/proof-media.jpg',
+            url: 'project-business-a.html'
+          });
+        },
+
+        removeProject(index) {
+          if (confirm('هل أنت متأكد من حذف هذا المشروع؟')) {
+            this.config.projects.splice(index, 1);
+            this.saveLocal();
+          }
+        },
+
+        addArticle() {
+          this.config.articles.unshift({
+            title: 'عنوان المقال الجديد',
+            date: 'سبتمبر 2026',
+            category: 'تقنية',
+            url: 'blog.html',
+            img: 'https://images.unsplash.com/photo-1571786256017-aee7a0c009b6?w=900&q=80'
+          });
+        },
+
+        removeArticle(index) {
+          if (confirm('هل أنت متأكد من حذف هذا المقال؟')) {
+            this.config.articles.splice(index, 1);
+            this.saveLocal();
+          }
+        },
+
+        downloadConfig() {
+          const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.config, null, 2));
+          const dlAnchorElem = document.createElement('a');
+          dlAnchorElem.setAttribute("href", dataStr);
+          dlAnchorElem.setAttribute("download", "site-config.json");
+          dlAnchorElem.click();
+          this.showToast('تم بدء تحميل site-config.json');
+        },
+
+        async publishToGithub() {
+          if (!this.githubToken) {
+            this.publishError = 'يرجى إدخال رمز GitHub Token أولاً.';
+            return;
+          }
+          localStorage.setItem('ma_gh_token', this.githubToken);
+          this.isPublishing = true;
+          this.publishError = '';
+          this.publishSuccess = false;
+
+          try {
+            const path = 'assets/site-config.json';
+            const url = `https://api.github.com/repos/${this.githubRepo}/contents/${path}`;
+
+            // 1. Get current SHA if exists
+            let sha = '';
+            const getRes = await fetch(url, {
+              headers: {
+                'Authorization': `Bearer ${this.githubToken}`,
+                'Accept': 'application/vnd.github.v3+json'
+              }
+            });
+            if (getRes.ok) {
+              const data = await getRes.json();
+              sha = data.sha;
+            }
+
+            // 2. Commit the new site-config.json
+            const contentEncoded = btoa(unescape(encodeURIComponent(JSON.stringify(this.config, null, 2))));
+            const putRes = await fetch(url, {
+              method: 'PUT',
+              headers: {
+                'Authorization': `Bearer ${this.githubToken}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                message: 'Update site configuration via Admin Dashboard',
+                content: contentEncoded,
+                sha: sha || undefined
+              })
+            });
+
+            if (!putRes.ok) {
+              const errData = await putRes.json();
+              throw new Error(errData.message || 'فشل في الاتصال بمستودع GitHub');
+            }
+
+            this.publishSuccess = true;
+            this.saveLocal();
+            this.showToast('🚀 تم نشر التحديثات على GitHub بنجاح!');
+          } catch (err) {
+            this.publishError = err.message;
+          } finally {
+            this.isPublishing = false;
+          }
+        }
+      };
+    }
+  </script>
+</body>
+</html>

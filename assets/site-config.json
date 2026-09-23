@@ -1,0 +1,110 @@
+{
+  "profile": {
+    "nameAr": "محمد أيمن",
+    "nameEn": "Mohamed Ayman",
+    "titleAr": "مطور مواقع وتطبيقات ويب محترف وخبير SEO",
+    "titleEn": "Full-Stack Web Developer & SEO Specialist",
+    "phone": "01028707543",
+    "whatsapp": "201028707543",
+    "email": "info@mohamedayman.online",
+    "website": "https://mohamedayman.online",
+    "linkedin": "https://www.linkedin.com/in/mohmed-ayman/",
+    "github": "https://github.com/ohmedayman",
+    "location": "مصر",
+    "experienceYears": "2+",
+    "happyClients": "15+",
+    "completedProjects": "20+"
+  },
+  "seo": {
+    "defaultTitle": "محمد أيمن | مطور مواقع ومصمم حلول ويب ذكية — Mohamed Ayman",
+    "defaultDescription": "الموقع الرسمي للمطور محمد أيمن (Mohamed Ayman) — خدمات تطوير مواقع، مشاريع رقمية، وتحسين محركات البحث SEO وتصميم واجهات المستخدم.",
+    "keywords": "محمد أيمن, Mohamed Ayman, مطور مواقع, تصميم مواقع, SEO عربي, برمجة, Vexonet, Proof Media, Qcv, Tailwind CSS, فرونت اند, full-stack developer",
+    "ogImage": "https://mohamedayman.online/assets/profile.jpg",
+    "canonicalBase": "https://mohamedayman.online/"
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "Proof Media",
+      "category": "business",
+      "categoryLabel": "Business",
+      "year": "2022",
+      "desc": "منصة رائدة لتقديم حلول التسويق الرقمي، إدارة الحملات الإعلانية، وتطوير الهوية البصرية والمواقع المبتكرة.",
+      "img": "assets/projects/proof-media.jpg",
+      "url": "project-business-a.html"
+    },
+    {
+      "id": 2,
+      "title": "vexonet",
+      "category": "business",
+      "categoryLabel": "Business",
+      "year": "2026",
+      "desc": "منصة تقنية متطورة لتقديم الحلول البرمجية والأنظمة الذكية والتحول الرقمي للشركات والأفراد.",
+      "img": "assets/projects/vexonet.jpg",
+      "url": "project-business-b.html"
+    },
+    {
+      "id": 3,
+      "title": "Qcv",
+      "category": "wordpress",
+      "categoryLabel": "WordPress / SaaS",
+      "year": "2026",
+      "desc": "منصة سحابية بالذكاء الاصطناعي من Vexonet لإنشاء سير ذاتية احترافية متوافقة مع أنظمة الـ ATS في دقائق.",
+      "img": "assets/projects/qcv.jpg",
+      "url": "project-launch.html"
+    },
+    {
+      "id": 4,
+      "title": "EasyOrders",
+      "category": "easyorders",
+      "categoryLabel": "EasyOrders",
+      "year": "2026",
+      "desc": "موقع مخصص لإدارة الطلبات وزيادة معدل التحويل لمنتجات التجارة الإلكترونية.",
+      "img": "assets/projects/easyorders.jpg",
+      "url": "project-easyorders.html"
+    },
+    {
+      "id": 5,
+      "title": "Wuilt",
+      "category": "wuilt",
+      "categoryLabel": "Wuilt",
+      "year": "2026",
+      "desc": "موقع أعمال حديث لإبراز الخدمات وبناء الثقة وقيمة العلامة التجارية.",
+      "img": "assets/projects/wuilt.jpg",
+      "url": "project-wuilt.html"
+    },
+    {
+      "id": 6,
+      "title": "WordPress Project",
+      "category": "wordpress",
+      "categoryLabel": "WordPress",
+      "year": "2026",
+      "desc": "موقع ووردبريس مرن وسريع يتيح إدارة المحتوى والمنتجات بكل سهولة.",
+      "img": "assets/projects/wordpress.jpg",
+      "url": "project-wordpress.html"
+    }
+  ],
+  "articles": [
+    {
+      "title": "أسرار تصدر محركات البحث للمواقع العربية في 2026 — دليل محمد أيمن العملي",
+      "date": "23 سبتمبر 2026",
+      "category": "SEO وتسويق رقمي",
+      "url": "blog-seo-secrets-2026.html",
+      "img": "https://images.unsplash.com/photo-1571786256017-aee7a0c009b6?w=900&q=80"
+    },
+    {
+      "title": "مستقبل تطوير الويب وتطبيقات الذكاء الاصطناعي التوليدي 2026 — رؤية محمد أيمن",
+      "date": "21 سبتمبر 2026",
+      "category": "ذكاء اصطناعي",
+      "url": "blog-modern-web-ai-2026.html",
+      "img": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=700&q=80"
+    },
+    {
+      "title": "دليل بناء هوية رقمية وتصميم مواقع عالية التحويل للشركات الناشئة مع محمد أيمن",
+      "date": "18 سبتمبر 2026",
+      "category": "ريادة أعمال",
+      "url": "blog-startup-digital-identity.html",
+      "img": "assets/projects/proof-media.jpg"
+    }
+  ]
+}

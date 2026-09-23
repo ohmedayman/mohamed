@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"
+  x-data="{ dark: localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&window.matchMedia('(prefers-color-scheme: dark)').matches), scrolled:false, mobileMenu:false, progress:0 }"
+  :class="{'dark':dark}"
+  x-init="$watch('dark',v=>localStorage.setItem('theme',v?'dark':'light'));window.addEventListener('scroll',()=>{scrolled=window.scrollY>20;progress=Math.min(100,Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100));},{passive:true})"
+  class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="manager.png" type="image/png" />
+  <meta name="description" content="دليل محمد أيمن لبناء هوية رقمية متكاملة وتصميم مواقع عالية التحويل للشركات والمتاجر في 2026. خطوات تحويل الزائر إلى عميل مستمر." />
+  <meta name="keywords" content="محمد أيمن, Mohamed Ayman, تصميم مواقع, شركات ناشئة, هوية رقمية, معدل التحويل CRO, تجربة المستخدم UX, بورتفوليو" />
+  <meta name="author" content="Mohamed Ayman - محمد أيمن" />
+  <meta property="og:title" content="دليل بناء هوية رقمية وتصميم مواقع عالية التحويل للشركات الناشئة مع محمد أيمن" />
+  <meta property="og:description" content="كيف تصمم موقعاً لشركتك الناشئة يحقق أعلى معدلات تحويل ومبيعات؟ نصائح وحلول من المطور محمد أيمن." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://mohamedayman.online/blog-startup-digital-identity.html" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80" />
+  <meta property="og:site_name" content="Mohamed Ayman - محمد أيمن" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="دليل بناء هوية رقمية وتصميم مواقع عالية التحويل للشركات الناشئة مع محمد أيمن" />
+  <meta name="twitter:description" content="خطوات عملية لبناء مواقع شركات ومتاجر تحقق أعلى عائد استثمار مع محمد أيمن." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80" />
+  <link rel="canonical" href="https://mohamedayman.online/blog-startup-digital-identity.html" />
+  <title>دليل بناء هوية رقمية وتصميم مواقع عالية التحويل للشركات الناشئة مع محمد أيمن</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "دليل بناء هوية رقمية وتصميم مواقع عالية التحويل للشركات الناشئة مع محمد أيمن",
+    "description": "كيف تصمم موقعاً لشركتك الناشئة يحقق أعلى معدلات تحويل ومبيعات؟ نصائح وحلول من المطور محمد أيمن.",
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+    "author": {
+      "@type": "Person",
+      "name": "محمد أيمن",
+      "alternateName": "Mohamed Ayman",
+      "url": "https://mohamedayman.online/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "محمد أيمن",
+      "url": "https://mohamedayman.online/"
+    },
+    "datePublished": "2026-09-18",
+    "dateModified": "2026-09-18",
+    "mainEntityOfPage": "https://mohamedayman.online/blog-startup-digital-identity.html",
+    "inLanguage": "ar"
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Alexandria', 'sans-serif'],
+            body: ['Alexandria', 'sans-serif']
+          },
+          colors: { accent: '#FF6B2B', 'accent-light': '#FF8F5C' }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { font-family: 'Alexandria', sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #FF6B2B; border-radius: 99px; }
+    body { transition: background-color .3s, color .3s; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: .4;
+    }
+    .prose-article h2 { font-size: 1.65rem; font-weight: 700; margin: 2.5rem 0 1rem; line-height: 1.4; color: #FF6B2B; }
+    .prose-article p { margin: 0 0 1.5rem; line-height: 1.9; color: #52525b; font-size: 1.05rem; }
+    .dark .prose-article p { color: #a1a1aa; }
+    .progress-bar { position: fixed; top: 0; right: 0; height: 3px; background: #FF6B2B; z-index: 100; transition: width .1s; }
+    [x-cloak] { display: none !important; }
+    .card-h { transition: transform .28s cubic-bezier(.4, 0, .2, 1), border-color .18s; }
+    .card-h:hover { transform: translateY(-4px); }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased rtl">
+  <div class="progress-bar" :style="`width:${progress}%`" role="progressbar"></div>
+
+  <header class="fixed top-0.5 left-0 right-0 z-50 transition-all duration-300"
+    :class="scrolled?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5':'bg-transparent'">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="font-display font-bold text-xl tracking-tight z-10">
+        <span class="text-zinc-900 dark:text-white">محمد</span><span class="text-accent"> أيمن</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <li><a href="blog.html" class="text-accent font-semibold">المدونة</a></li>
+        <li><a href="projects.html" class="hover:text-accent transition-colors">المشاريع</a></li>
+        <li><a href="certification.html" class="hover:text-accent transition-colors">الشهادات</a></li>
+        <li><a href="index.html" class="hover:text-accent transition-colors">الرئيسية</a></li>
+      </ul>
+      <div class="flex items-center gap-3">
+        <button @click="dark=!dark;localStorage.setItem('theme',dark?'dark':'light')"
+          class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+          :aria-label="dark?'Light mode':'Dark mode'">
+          <svg x-show="!dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+          <svg x-show="dark" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <article class="pt-32 pb-16 max-w-4xl mx-auto px-6 prose-article text-justify">
+      <a href="blog.html" class="inline-flex items-center gap-2 text-sm text-zinc-500 mb-8 border border-zinc-200 dark:border-zinc-800 px-4 py-2 rounded-full hover:border-accent hover:text-accent transition-all">
+        ← العودة للمدونة
+      </a>
+
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-3 py-1 rounded-full font-bold">ريادة أعمال وتصميم</span>
+        <span class="text-xs text-zinc-400">18 سبتمبر 2026 · 7 دقائق قراءة</span>
+      </div>
+
+      <h1 class="font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6">
+        دليل بناء هوية رقمية وتصميم مواقع عالية التحويل للشركات الناشئة مع محمد أيمن
+      </h1>
+
+      <p class="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8 font-medium">
+        الموقع الإلكتروني ليس مجرد بطاقة عمل إلكترونية؛ إنه ماكينة مبيعاتك الأساسية ومصدر مصداقيتك أمام المستثمرين والعملاء. في هذا الدليل، يوضح <strong>محمد أيمن (Mohamed Ayman)</strong> كيف تؤسس هوية رقمية تترك أثراً دائماً وتدفع العميل لاتخاذ قرار الشراء.
+      </p>
+
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80" alt="تصميم مواقع وهوية رقمية مع محمد أيمن" class="w-full h-72 md:h-96 object-cover rounded-2xl mb-12 shadow-xl" loading="lazy" />
+
+      <h2>1. الوضوح الفوري في أول 5 ثوانٍ</h2>
+      <p>
+        أغلب الزوار يغادرون الموقع سريعاً إذا لم يفهموا خلال 5 ثوانٍ: ماذا تقدم؟ ولمن؟ وما هي القيمة المضافة؟ في منصة <a href="project-business-a.html" class="text-accent underline font-semibold">Proof Media</a> وكل مشروع نقوم به، نعتمد على رسالة تسويقية واضحة وصريحة دون غموض.
+      </p>
+
+      <h2>2. إزالة العقبات في مسار التحويل (Frictionless UX)</h2>
+      <p>
+        كل حقل زائد في نموذج الاتصال أو ثانية تأخير في تحميل الصفحة تكلفك خسارة عميل محتمل. نقوم بتبسيط خطوات الطلب والتواصل من خلال أزرار Call-to-Action واضحة وتصميم واجهات متجاوبة كلياً مع الهواتف الذكية.
+      </p>
+
+      <h2>3. بناء الثقة عبر إثبات الجدارة (Social Proof)</h2>
+      <p>
+        عرض آراء العملاء الحقيقيين، سابقة الأعمال، وشارات الاعتماد الرسمية هي أسرع وسيلة لبناء الثقة الفورية. يمكنك استعراض <a href="projects.html" class="text-accent underline font-semibold">سابقة الأعمال والمشاريع</a> لرؤية نماذج حقيقية مطبقة في السوق.
+      </p>
+
+      <div class="my-10 p-6 rounded-2xl bg-orange-50/50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900/50">
+        <h3 class="font-display font-bold text-xl text-accent mb-2">استشر محمد أيمن لمشروعك القادم:</h3>
+        <p class="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed mb-0">
+          هل تخطط لإطلاق موقع شركتك أو تطوير متجرك؟ تواصل معي مباشرة عبر صفحة <a href="index.html#contact" class="text-accent font-bold underline">اتصل بي في الموقع الرسمي</a> للحصول على استشارة متخصصة.
+        </p>
+      </div>
+
+      <section class="mt-20 pt-10 border-t border-zinc-100 dark:border-zinc-900">
+        <h3 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-8">مقالات أخرى ننصح بقراءتها</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a href="blog-seo-secrets-2026.html" class="block p-6 rounded-2xl border border-zinc-100 dark:border-zinc-800 hover:border-accent transition-colors">
+            <span class="text-xs text-accent font-bold">جديد · 23 سبتمبر 2026</span>
+            <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-white mt-2">أسرار تصدر محركات البحث للمواقع العربية في 2026</h4>
+          </a>
+          <a href="blog-modern-web-ai-2026.html" class="block p-6 rounded-2xl border border-zinc-100 dark:border-zinc-800 hover:border-accent transition-colors">
+            <span class="text-xs text-accent font-bold">جديد · 21 سبتمبر 2026</span>
+            <h4 class="font-display font-bold text-lg text-zinc-900 dark:text-white mt-2">مستقبل تطوير الويب وتطبيقات الذكاء الاصطناعي التوليدي 2026</h4>
+          </a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="border-t border-zinc-100 dark:border-zinc-900">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-zinc-400">&copy; <span id="year"></span> محمد أيمن — Mohamed Ayman. جميع الحقوق محفوظة.</p>
+      <p class="text-xs text-zinc-500">تم التطوير بواسطة محمد أيمن &amp; Vexonet</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
