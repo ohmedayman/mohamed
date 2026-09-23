@@ -182,13 +182,13 @@
             <div>
               <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">رقم الهاتف (اتصال مباشر)</label>
               <input type="text" x-model="config.profile.phone" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
-              <span class="text-[11px] text-zinc-400 mt-1 block">يسمع تلقائياً في رابط tel:01028707543</span>
+              <span class="text-[11px] text-zinc-400 mt-1 block" x-text="'يسمع تلقائياً في رابط tel:' + config.profile.phone"></span>
             </div>
 
             <div>
               <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">رقم الواتساب (بالكود الدولي بدون +)</label>
               <input type="text" x-model="config.profile.whatsapp" class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:border-accent">
-              <span class="text-[11px] text-zinc-400 mt-1 block">مثال: 201028707543</span>
+              <span class="text-[11px] text-zinc-400 mt-1 block" x-text="'رابط واتساب: https://wa.me/' + config.profile.whatsapp"></span>
             </div>
 
             <div>
