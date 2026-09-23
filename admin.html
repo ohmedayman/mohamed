@@ -46,7 +46,7 @@
         </svg>
       </div>
       <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-2">لوحة تحكم الموقع</h2>
-      <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">أدخل رمز الدخول السري (الرمز الافتراضي: 2026)</p>
+      <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">أدخل رمز الدخول السري (PIN) للدخول إلى لوحة التحكم</p>
       
       <form @submit.prevent="checkPin">
         <input type="password" x-model="pinInput" placeholder="رمز الدخول (PIN)" autofocus
@@ -128,6 +128,12 @@
             <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
             <span>النشر السحابي المباشر</span>
           </button>
+
+          <button @click="activeTab = 'security'" :class="activeTab === 'security' ? 'bg-accent text-white' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'"
+            class="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-colors text-right">
+            <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <span>أمان اللوحة ورمز الـ PIN</span>
+          </button>
         </nav>
 
         <!-- Status Card -->
@@ -151,9 +157,15 @@
               <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white">بيانات التواصل والهوية الشخصية</h2>
               <p class="text-sm text-zinc-500 dark:text-zinc-400">البيانات التي تظهر في قسم الهيرو، من أنا، وقسم تواصل معنا في الأسفل.</p>
             </div>
-            <button @click="saveLocal" class="bg-accent hover:bg-accent-dark text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-all shadow-md">
-              حفظ التعديلات
-            </button>
+            <div class="flex items-center gap-2">
+              <button @click="saveLocal" class="bg-accent hover:bg-accent-dark text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-all shadow-md">
+                حفظ التعديلات
+              </button>
+              <button @click="activeTab = 'publish'" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                <span>نشر أونلاين لكل الناس 🚀</span>
+              </button>
+            </div>
           </div>
 
           <div class="grid md:grid-cols-2 gap-6">
@@ -413,6 +425,40 @@
           </div>
         </section>
 
+        <!-- TAB 6: SECURITY & PIN MANAGEMENT -->
+        <section x-show="activeTab === 'security'" class="space-y-6">
+          <div class="border-b border-zinc-200 dark:border-zinc-800 pb-4">
+            <h2 class="font-display font-bold text-2xl text-zinc-900 dark:text-white">أمان لوحة التحكم وتغيير رمز الدخول (PIN)</h2>
+            <p class="text-sm text-zinc-500 dark:text-zinc-400">يمكنك هنا تعيين رمز سري خاص بك فقط، ولن يظهر الرمز القديم لأي شخص بعد ذلك.</p>
+          </div>
+
+          <div class="max-w-md space-y-4 bg-zinc-50 dark:bg-zinc-800/50 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800">
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">رمز الدخول الجديد (PIN أو كلمة مرور)</label>
+              <input type="password" x-model="newPin" placeholder="أدخل رمز الدخول الجديد..."
+                class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm focus:outline-none focus:border-accent">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-2">تأكيد رمز الدخول الجديد</label>
+              <input type="password" x-model="confirmPin" placeholder="أعد إدخال الرمز للتأكيد..."
+                class="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm focus:outline-none focus:border-accent">
+            </div>
+
+            <p x-show="pinChangedError" class="text-xs text-red-500 font-bold" x-text="pinChangedError"></p>
+            <p x-show="pinChangedSuccess" class="text-xs text-emerald-500 font-bold">✅ تم حفظ رمز PIN الجديد بنجاح! لا يعرفه أحد غيرك الآن.</p>
+
+            <div class="pt-2 flex items-center gap-4">
+              <button @click="changePin" class="bg-accent hover:bg-accent-dark text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all shadow-md">
+                حفظ رمز PIN الجديد
+              </button>
+              <button @click="resetPin" class="text-xs text-zinc-500 hover:text-red-500 underline">
+                إعادة ضبط الرمز
+              </button>
+            </div>
+          </div>
+        </section>
+
       </main>
     </div>
   </div>
@@ -439,15 +485,20 @@
         githubRepo: 'ohmedayman/mohamed',
         githubToken: localStorage.getItem('ma_gh_token') || '',
 
+        newPin: '',
+        confirmPin: '',
+        pinChangedSuccess: false,
+        pinChangedError: '',
+
         config: {
           profile: {
             nameAr: 'محمد أيمن',
             nameEn: 'Mohamed Ayman',
             titleAr: 'مطور مواقع وتطبيقات ويب محترف وخبير SEO',
             titleEn: 'Full-Stack Web Developer & SEO Specialist',
-            phone: '01028707543',
+            phone: '01003809241',
             whatsapp: '201028707543',
-            email: 'info@mohamedayman.online',
+            email: 'info@mohamedayman.com',
             website: 'https://mohamedayman.online',
             linkedin: 'https://www.linkedin.com/in/mohmed-ayman/',
             github: 'https://github.com/ohmedayman',
@@ -471,7 +522,11 @@
           fetch('assets/site-config.json?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
-              if (data) this.config = Object.assign(this.config, data);
+              if (data) {
+                const saved = localStorage.getItem('ma_site_config');
+                const localData = saved ? JSON.parse(saved) : {};
+                this.config = Object.assign(this.config, data, localData);
+              }
             })
             .catch(() => {
               const saved = localStorage.getItem('ma_site_config');
@@ -482,12 +537,42 @@
         },
 
         checkPin() {
-          if (this.pinInput === '2026' || this.pinInput === 'admin2026') {
+          const customPin = localStorage.getItem('ma_admin_custom_pin');
+          const validPin = customPin || '2026';
+          if (this.pinInput === validPin || (!customPin && (this.pinInput === 'admin2026' || this.pinInput === '2026'))) {
             this.authenticated = true;
             sessionStorage.setItem('ma_admin_auth', 'true');
             this.pinError = false;
           } else {
             this.pinError = true;
+          }
+        },
+
+        changePin() {
+          if (!this.newPin || this.newPin.trim().length < 4) {
+            this.pinChangedError = 'يرجى إدخال رمز لا يقل عن 4 أرقام أو حروف.';
+            this.pinChangedSuccess = false;
+            return;
+          }
+          if (this.newPin !== this.confirmPin) {
+            this.pinChangedError = 'الرمز وتأكيده غير متطابقين.';
+            this.pinChangedSuccess = false;
+            return;
+          }
+          localStorage.setItem('ma_admin_custom_pin', this.newPin.trim());
+          this.pinChangedSuccess = true;
+          this.pinChangedError = '';
+          this.newPin = '';
+          this.confirmPin = '';
+          this.showToast('🔒 تم تغيير وحفظ رمز الدخول السري بنجاح!');
+        },
+
+        resetPin() {
+          if (confirm('هل أنت متأكد من إعادة ضبط رمز الدخول؟')) {
+            localStorage.removeItem('ma_admin_custom_pin');
+            this.pinChangedSuccess = false;
+            this.pinChangedError = '';
+            this.showToast('تمت إعادة ضبط الرمز السري.');
           }
         },
 
@@ -499,12 +584,14 @@
 
         showToast(msg) {
           this.toastMsg = msg;
-          setTimeout(() => { this.toastMsg = ''; }, 3000);
+          setTimeout(() => { this.toastMsg = ''; }, 3500);
         },
 
         saveLocal() {
           localStorage.setItem('ma_site_config', JSON.stringify(this.config));
-          this.showToast('تم حفظ التعديلات محلياً بنجاح!');
+          // Dispatch storage event so index.html updates instantly
+          window.dispatchEvent(new Event('storage'));
+          this.showToast('✅ تم حفظ التعديلات محلياً وتحديث الموقع فوراً!');
         },
 
         addProject() {
