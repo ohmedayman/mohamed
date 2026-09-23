@@ -363,6 +363,24 @@
           this.dark = localStorage.getItem('theme') === 'dark'
             || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
+          try {
+            const saved = localStorage.getItem('ma_site_config');
+            if (saved) {
+              const cfg = JSON.parse(saved);
+              if (cfg.projects && cfg.projects.length) {
+                this.allProjects = cfg.projects;
+              }
+            }
+          } catch(e){}
+
+          fetch('assets/site-config.json?t=' + Date.now())
+            .then(r => r.json())
+            .then(data => {
+              if (data && data.projects && data.projects.length) {
+                this.allProjects = data.projects;
+              }
+            }).catch(() => {});
+
           window.addEventListener('scroll', () => {
             this.scrolled = window.scrollY > 20;
           }, { passive: true });
